@@ -22,7 +22,7 @@ userRoute.get('/me', Authorization('customer'), async(req, res)=>{
             res.status(200).json({error: true, status:404,message:`No user found for your request.`})
         }
     }else{
-        res.status(401).json({error: true, status:404,message:`You are unauthorized`})
+        res.status(401).json({error: true, status:401,message:`You are unauthorized`})
     }
 });
 

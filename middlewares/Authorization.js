@@ -12,7 +12,7 @@ const Authorization = (roles)=>{
             const token = req?.headers?.authorization?.split(' ')[1] ;
             const {result} = await verifyToken(token);
             user= result?.user || "";
-        }
+        };
         if(user){
             const Exist= await User.findOne({email:user});
             if(Exist){

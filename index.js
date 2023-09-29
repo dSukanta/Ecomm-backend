@@ -2,6 +2,7 @@ const express= require('express');
 const cors= require('cors');
 const { connection } = require('./config/db');
 const { userRoute } = require('./routes/userRoute');
+const { admin } = require('./routes/adminRoute');
 require('dotenv').config();
 
 const PORT= process.env.PORT || 5000
@@ -16,6 +17,7 @@ app.get('/',(req, res) =>{
 });
 
 app.use('/user/auth', userRoute);
+app.use('/admin',admin);
 
 app.listen(PORT,async()=>{
     try {
