@@ -5,22 +5,36 @@ const { verifyToken } = require("../utils/helper");
 const Authorization = (roles)=>{
     
     return async (req,res,next)=>{
-        const user= req.body;
-
-        const Exist= await User.findOne({email:user?.email});
-
-        if(Array.isArray(roles)){
-            if(roles.includes(Exist.userType)){
-                next()
+        let user;
+        if(req.body.email){
+            user= req?.body?.email || "";
+        }else if(req.headers.authorization){
+            const token = req?.headers?.authorization?.split(' ')[1] ;
+            const {result} = await verifyToken(token);
+            user= result?.user || "";
+        }
+        if(user){
+            const Exist= await User.findOne({email:user});
+            if(Exist){
+                if(Array.isArray(roles)){
+                    if(roles.includes(Exist.userType)){
+                        next()
+                    }else{
+                        res.status(401).json({error: true, status:401,message:`You are unauthorized.Only ${roles} can access.`})
+                    }
+                }else{
+                    if(roles===Exist.userType){
+                        next()
+                    }else{
+                        res.status(401).json({error: true, status:401,message:`You are unauthorized.Only ${roles} can access.`})
+                    }
+                }
             }else{
-                res.status(401).send("You are not Authorized.For more details contact us")
+                res.status(404).json({error: true, status:404,message:`User not found`})
+
             }
         }else{
-            if(roles===Exist.userType){
-                next()
-            }else{
-                res.status(401).send("You are not Authorized.For more details contact us")
-            }
+            res.status(401).json({error: true, status:401,message:`Authentication Failed.`})
         }
     }
 }

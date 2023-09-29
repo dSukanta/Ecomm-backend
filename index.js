@@ -15,7 +15,7 @@ app.get('/',(req, res) =>{
     res.status(200).send('Welcome to the ecomm api')
 });
 
-app.use('/auth', userRoute);
+app.use('/user/auth', userRoute);
 
 app.listen(PORT,async()=>{
     try {
