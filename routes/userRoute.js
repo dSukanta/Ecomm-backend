@@ -105,27 +105,27 @@ userRoute.put('/update-profile',Authorization('customer'), async(req, res)=>{
     };
 });
 
-// userRoute.put('/updateAvatar',Authorization('customer'), async (req, res) => {
-//     console.log(req.file)
-//     try {
-//       if (!req.file) {
-//         return res.status(400).json({error: true, status:400,message:`No file uploaded`});
-//       };
-//       const compressedImage = await sharp(req.file.buffer).resize({ width: 800 }).jpeg({ quality: 80 }).toBuffer();
-//       if(!compressedImage){
-//           res.status(500).json({error: true, status:500,message:'Unable to compress image'});
-//       }else{
-//         const saved = await User.findOneAndUpdate({email:result?.user},{user_image:compressedImage || req.file},{new:true});
-//         if(saved){
-//             res.status(200).json({ message: 'Image uploaded and processed successfully.' });
-//         }else{
-//             res.status(500).json({error: true, status:500,message:'Unable save file to db'});
-//         }
-//       }
-//     } catch (error) {
-//         res.status(500).json({error: true, status:500,message:'Something went wrong. Try after some time'});
-//     }
-//   });
+userRoute.put('/updateAvatar',Authorization('customer'), async (req, res) => {
+    console.log(req.file)
+    try {
+      if (!req.file) {
+        return res.status(400).json({error: true, status:400,message:`No file uploaded`});
+      };
+      const compressedImage = await sharp(req.file.buffer).resize({ width: 800 }).jpeg({ quality: 80 }).toBuffer();
+      if(!compressedImage){
+          res.status(500).json({error: true, status:500,message:'Unable to compress image'});
+      }else{
+        const saved = await User.findOneAndUpdate({email:result?.user},{user_image:compressedImage || req.file},{new:true});
+        if(saved){
+            res.status(200).json({ message: 'Image uploaded and processed successfully.' });
+        }else{
+            res.status(500).json({error: true, status:500,message:'Unable save file to db'});
+        }
+      }
+    } catch (error) {
+        res.status(500).json({error: true, status:500,message:'Something went wrong. Try after some time'});
+    }
+  });
 
 
 
