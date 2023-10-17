@@ -5,6 +5,7 @@ const { userRoute } = require('./routes/userRoute');
 const { admin } = require('./routes/adminRoute');
 const { addressRoute } = require('./routes/addressRoute');
 const { productsRoute } = require('./routes/productRoute');
+const { cartRoute } = require('./routes/CartRoute');
 require('dotenv').config();
 
 const PORT= process.env.PORT || 5000
@@ -22,6 +23,7 @@ app.use('/user/auth', userRoute);
 app.use('/admin',admin);
 app.use('/address', addressRoute);
 app.use('/products', productsRoute);
+app.use('/cart',cartRoute);
 
 app.listen(PORT,async()=>{
     try {

@@ -106,7 +106,7 @@ userRoute.put('/update-profile',Authorization('customer'), async(req, res)=>{
 });
 
 userRoute.put('/updateAvatar',Authorization('customer'), async (req, res) => {
-    console.log(req.file)
+    // console.log(req.file)
     try {
       if (!req.file) {
         return res.status(400).json({error: true, status:400,message:`No file uploaded`});

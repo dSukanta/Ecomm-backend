@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "your-collection-id",
+    "name": "EcommApi",
+    "description": "A collection of routes for E-commerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "id": "base_url",
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "id": "token",
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTY5NzQ2MDM1MCwiZXhwIjoxNjk3NTQ2NzUwfQ.iVZFnDEmWPy_n0p54LZzyeULp_XmVsj3sY7YjR5pfDw",
+      "type": "string"
+    },
+    {
+      "id": "admin_token",
+      "key": "admin_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdEBhZG1pbi5jb20iLCJpYXQiOjE2OTc0NjE3NjIsImV4cCI6MTY5NzU0ODE2Mn0.S6IrtDMk9G_lr8O70KXVUot91mHsrRMVYvv2a9zy_Vs",
+      "type": "string"
+    },
+    {
+      "id": "user_id",
+      "key": "user_id",
+      "value": "652d017014fe3e89321977e9",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Simple GET",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}/"]
+        }
+      }
+    },
+    {
+      "name": "User Signup",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/user/auth/signup",
+          "host": ["{{base_url}}"],
+          "path": ["/user/auth/signup"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"phone_no\":\"1234569\",\"password\":\"123456\",\"confirmPassword\":\"123456\"}"
+        }
+      }
+    },
+    {
+      "name": "User Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/user/auth/signin",
+          "host": ["{{base_url}}"],
+          "path": ["/user/auth/signin"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"john@example.com\",\"password\":\"123456\"}"
+        }
+      }
+    },
+    {
+      "name": "View Profile",
+      "request": {
+        "method": "GET",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/user/auth/me",
+          "host": ["{{base_url}}"],
+          "path": ["user/auth/me"]
+        }
+      }
+    },
+    {
+      "name": "Edit Profile",
+      "request": {
+        "method": "PUT",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/user/auth/update-profile",
+          "host": ["{{base_url}}"],
+          "path": ["user/auth/update-profile"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"john\",\"phone_no\":\"123456\"}"
+        }
+      }
+    },
+    {
+      "name": "Change Password",
+      "request": {
+        "method": "PUT",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/user/auth/change-password",
+          "host": ["{{base_url}}"],
+          "path": ["user/auth/change-password"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"oldPassword\":\"john\",\"newPassword\":\"123456\",\"confirmNewPassword\":\"123456\"}"
+        }
+      }
+    },
+    {
+      "name": "Change Profile Image",
+      "request": {
+        "method": "PUT",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/user/auth/updateAvatar",
+          "host": ["{{base_url}}"],
+          "path": ["user/auth/updateAvatar"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"user_image\":\"john\"}"
+        }
+      }
+    },
+    {
+      "name": "Change Profile Image",
+      "request": {
+        "method": "PUT",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/user/auth/updateAvatar",
+          "host": ["{{base_url}}"],
+          "path": ["user/auth/updateAvatar"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"user_image\":\"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png\"}"
+        }
+      }
+    },
+    {
+      "name": "Simple Admin Route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/admin",
+          "host": ["{{base_url}}"],
+          "path": ["/admin"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Get all users",
+      "request": {
+        "method": "GET",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{admin_token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/admin/myusers",
+          "host": ["{{base_url}}"],
+          "path": ["/admin/myusers"]
+        },
+        "body": {
+        
+        }
+      }
+    },
+    {
+      "name": "Get single users",
+      "request": {
+        "method": "GET",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{admin_token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/admin/myusers/{{user_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["/admin/myusers","{{user_id}}"]
+        },
+        "body": {
+        
+        }
+      }
+    },
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/admin/auth/signin",
+          "host": ["{{base_url}}"],
+          "path": ["/admin/auth/signin"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"test@admin.com\",\"password\":\"123456\"}"
+        }
+      }
+    },
+    {
+      "name": "Delete user",
+      "request": {
+        "method": "DELETE",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{admin_token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/admin/deleteuser/{{email}}",
+          "host": ["{{base_url}}"],
+          "path": ["/admin/deleteuser","{{email}}"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Simple Address Route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/address",
+          "host": ["{{base_url}}"],
+          "path": ["/address"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Get user address",
+      "request": {
+        "method": "GET",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/address/myaddress/{{token}}",
+          "host": ["{{base_url}}"],
+          "path": ["/address/myaddress","{{token}}"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Post user address",
+      "request": {
+        "method": "POST",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/address/myaddress/{{token}}/addnew",
+          "host": ["{{base_url}}"],
+          "path": ["/address/myaddress","{{token}}","addnew"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"John Doe\",\"phone_no\":\"1234569\",\"city\":\"durgapur\",\"locality\":\"city center\",\"district\":\"barddhaman\",\"state\":\"west bengal\",\"pincode\":\"712106\"}"
+        }
+      }
+    },
+    {
+      "name": "Edit user address",
+      "request": {
+        "method": "PUT",
+        "header": [ {
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/address/myaddress/{{token}}/edit/{{addressid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/address/myaddress","{{token}}","edit","{{addressid}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"John Doe\",\"phone_no\":\"1234569\",\"city\":\"durgapur\",\"locality\":\"city center\",\"district\":\"barddhaman\",\"state\":\"west bengal\",\"pincode\":\"712106\"}"
+        }
+      }
+    },
+    {
+      "name": "Delete user address",
+      "request": {
+        "method": "DELETE",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/address/myaddress/{{token}}/delete/{{addressid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/address/myaddress","{{token}}","delete","{{addressid}}"]
+        },
+        "body": {
+         }
+      }
+    },
+    {
+      "name": "Simple Product Get",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/products",
+          "host": ["{{base_url}}"],
+          "path": ["/products"]
+        },
+        "body": {
+         }
+      }
+    },
+    {
+      "name": "Get Product by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/products/{{productid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/products","{{productid}}"]
+        },
+        "body": {
+         }
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/products/{{token}}/newproduct",
+          "host": ["{{base_url}}"],
+          "path": ["/products","{{token}}","newproduct"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"image\":\"null\",\"title\":\"Product1\",\"description\":\"product1\",\"price\":\"100\",\"category\":\"men's\",\"stocks\":\"10\",\"color\":\"#000\",\"sizes\":\"M,L,XL\"}"
+        }
+      }
+    },
+    {
+      "name": "Edit Product",
+      "request": {
+        "method": "PUT",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/products/editproduct/{{productid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/products/editproduct","{{productid}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"image\":\"null\",\"title\":\"Product1\",\"description\":\"product1\",\"price\":\"100\",\"category\":\"men's\",\"stocks\":\"10\",\"color\":\"#000\",\"sizes\":\"M,L,XL\"}"
+        }
+      }
+    },
+    {
+      "name": "Delete Product",
+      "request": {
+        "method": "DELETE",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/products/deleteproduct/{{productid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/products/deleteproduct","{{productid}}"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Get Cart",
+      "request": {
+        "method": "GET",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/cart/mycart/{{token}}",
+          "host": ["{{base_url}}"],
+          "path": ["/cart/mycart","{{token}}"]
+        },
+        "body": {
+        }
+      }
+    },
+    {
+      "name": "Add to Cart",
+      "request": {
+        "method": "POST",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/cart/mycart/addtocart/{{token}}",
+          "host": ["{{base_url}}"],
+          "path": ["/cart/mycart/addtocart","{{token}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"quantity\":\"1\",\"productid\":\"Product1\"}"
+        }
+      }
+    },
+    {
+      "name": "Edit Cart",
+      "request": {
+        "method": "PUT",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/cart/mycart/edit/{{token}}/{{productid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/cart/mycart/edit","{{token}}","{{productid}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"quantity\":\"2\",\"productid\":\"Product1\"}"
+        }
+      }
+    },
+    {
+      "name": "Delete Cart",
+      "request": {
+        "method": "DELETE",
+        "header": [{
+          "key": "Authorization",
+          "value": "Bearer {{token}}"
+      }],
+        "url": {
+          "raw": "{{base_url}}/cart/mycart/deleteitem/{{token}}/{{productid}}",
+          "host": ["{{base_url}}"],
+          "path": ["/cart/mycart/deleteitem","{{token}}","{{productid}}"]
+        },
+        "body": {
+        }
+      }
+    }
+  ]
+}

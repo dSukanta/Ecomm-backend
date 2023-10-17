@@ -1,12 +1,12 @@
 const express= require('express');
 const { Authorization } = require('../middlewares/Authorization');
 const { User } = require('../models/userModel');
-const { comparePassword, createToken } = require('../utils/helper');
+const { comparePassword, createToken, checkValidId } = require('../utils/helper');
 const mongoose  = require('mongoose');
 
 
 const admin= express.Router();
-
+ 
 admin.get(`/`,(req, res) =>{
     res.status(200).json({error: true, status:200,message:`this is admin route`})
 });
@@ -53,6 +53,25 @@ admin.post('/auth/signin',Authorization('admin'), async(req, res)=>{
         res.status(404).json({error: true, status:404,message:`No user Found.`})
     }
 });
+admin.delete('/deleteuser/:email',Authorization('admin'),async(req,res)=>{
+    const {email}= req.params;
+    if(!email){
+         res.status(400).json({status:400,message:'email is required'})
+    }else{
+        const Exist= await User.findOne({email});
+        if(Exist){
+            try {
+                const deleteUser= await User.findByIdAndDelete({_id: Exist?._id});
+                res.status(200).json({status:200,message:'User deleted successfully'});
+            } catch (error) {
+                res.status(500).json({status:500,message:'Internal server error'});
+            }
+        }else{
+            return res.status(400).json({status:400,message:'No user found'});
+        }
+    }
+});
+
 
 
 
