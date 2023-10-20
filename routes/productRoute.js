@@ -19,7 +19,7 @@ productsRoute.get("/:productid",async(req,res)=>{
     if(isValidId){
         const product= await Product.findOne({_id:productid});
         if(product){
-            res.status(200).send({ status: 200, message: "products fetched successfully", data: productid});
+            res.status(200).send({ status: 200, message: "products fetched successfully", data: product});
         }else{
             res.status(404).send({ status: 404, message: "no products found"});
         }
@@ -52,15 +52,15 @@ productsRoute.post("/:user/newproduct",Authorization(['admin','seller']), async 
             if(!category){
                 return res.status(400).send({ status: 400, message: `category is required` }); 
             };
-            if(!stocks){
-                return res.status(400).send({ status: 400, message: `stocks is required` }); 
-            };
-            if(!color){
-                return res.status(400).send({ status: 400, message: `color is required` }); 
-            };
-            if(!sizes){
-                return res.status(400).send({ status: 400, message: `sizes is required` }); 
-            };
+            // if(!stocks){
+            //     return res.status(400).send({ status: 400, message: `stocks is required` }); 
+            // };
+            // if(!color){
+            //     return res.status(400).send({ status: 400, message: `color is required` }); 
+            // };
+            // if(!sizes){
+            //     return res.status(400).send({ status: 400, message: `sizes is required` }); 
+            // };
             const { result } = await verifyToken(token);
             if(result.user){
                 const Exist = await User.findOne({ email: result?.user });

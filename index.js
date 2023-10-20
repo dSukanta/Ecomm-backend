@@ -6,12 +6,14 @@ const { admin } = require('./routes/adminRoute');
 const { addressRoute } = require('./routes/addressRoute');
 const { productsRoute } = require('./routes/productRoute');
 const { cartRoute } = require('./routes/CartRoute');
+const { categoryRoute } = require('./routes/category');
 require('dotenv').config();
 
 const PORT= process.env.PORT || 5000
 const app= express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 
 
@@ -24,6 +26,7 @@ app.use('/admin',admin);
 app.use('/address', addressRoute);
 app.use('/products', productsRoute);
 app.use('/cart',cartRoute);
+app.use('/categories',categoryRoute);
 
 app.listen(PORT,async()=>{
     try {

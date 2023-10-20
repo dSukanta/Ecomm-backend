@@ -24,7 +24,7 @@ addressRoute.get("/myaddress/:user/", async (req, res) => {
       res.status(401).send({ status: 401, message: `Invalid token` });
     } else {
       const { result } = await verifyToken(token);
-      if (result.user) {
+      if (result?.user) {
         const Exist = await User.findOne({ email: result?.user });
         if (Exist) {
           const addresses = await Address.find({ user: Exist?._id });
@@ -55,7 +55,7 @@ addressRoute.post("/myaddress/:user/addnew", async (req, res) => {
       res.status(401).send({ status: 401, message: `Invalid token` });
     } else {
       const { result } = await verifyToken(token);
-      if (result.user) {
+      if (result?.user) {
         const Exist = await User.findOne({ email: result?.user });
         if (Exist) {
           const { name, phone_no, city, locality, district, state, pincode } =
@@ -108,7 +108,7 @@ addressRoute.put("/myaddress/:user/edit/:addressid", async (req, res) => {
       res.status(401).send({ status: 401, message: `Invalid token` });
     } else {
       const { result } = await verifyToken(token);
-      if (result.user) {
+      if (result?.user) {
         const Exist = await User.findOne({ email: result?.user });
         if (Exist) {
           const { name, phone_no, city, locality, district, state, pincode } =
@@ -160,7 +160,7 @@ addressRoute.delete("/myaddress/:user/delete/:addressid", async (req, res) => {
       res.status(401).send({ status: 401, message: `Invalid token` });
     } else {
       const { result } = await verifyToken(token);
-      if (result.user) {
+      if (result?.user) {
         const Exist = await User.findOne({ email: result?.user });
         if (Exist) {
           const deleteAddress = await Address.findByIdAndDelete({

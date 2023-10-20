@@ -13,7 +13,7 @@ cartRoute.get('/mycart/:user',async(req,res)=>{
     const token = req?.headers?.authorization?.split(" ")[1];
     if(user && token && (user === token)){
         const { result } = await verifyToken(token);
-        if(result.user){
+        if(result?.user){
             const Exist = await User.findOne({ email: result?.user });
             if(Exist){
                 try {
@@ -30,7 +30,7 @@ cartRoute.get('/mycart/:user',async(req,res)=>{
             res.status(500).send({ status: 500, message: `Internal jwt server error.` });
         }
     }else{
-        res.status(401).send({ status: 401, message: `Invalid token` });
+        res.status(401).send({ status: 401, message: `Invalid token`});
     }
 });
 
@@ -49,7 +49,7 @@ cartRoute.post('/mycart/addtocart/:user',async(req,res)=>{
     
     if(user && token && (user === token)){
         const { result } = await verifyToken(token);
-        if(result.user){
+        if(result?.user){
             const Exist = await User.findOne({ email: result?.user });
             if(Exist){
                 try {
@@ -84,7 +84,7 @@ cartRoute.put('/mycart/edit/:user/:productid',async(req,res)=>{
 
     if(user && token && (user === token)){
         const { result } = await verifyToken(token);
-        if(result.user){
+        if(result?.user){
             const Exist = await User.findOne({ email: result?.user });
             if(Exist){
                 try {
@@ -119,7 +119,7 @@ cartRoute.delete('/mycart/deleteitem/:user/:productid',async(req,res)=>{
             res.status(401).send({ status: 401, message: `token mismatched.` });
         }else{
             const { result } = await verifyToken(token);
-            if(result.user){
+            if(result?.user){
                 const Exist = await User.findOne({ email: result?.user });
                 if(Exist){
                     try {

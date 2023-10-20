@@ -31,10 +31,9 @@ const Authorization = (roles)=>{
                 }
             }else{
                 res.status(404).json({error: true, status:404,message:`User not found`})
-
             }
         }else{
-            res.status(401).json({error: true, status:401,message:`Authentication Failed.`})
+            res.status(404).json({error: true, status:404,message:`email/user not found or you are not allowed without exact token.`})
         }
     }
 }
