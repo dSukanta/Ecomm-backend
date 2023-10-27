@@ -8,7 +8,7 @@ const addressSchema = new mongoose.Schema({
   district:{type:String, required:true},
   state:{type:String, require:true},
   pincode:{type:String, required:true},
-  user: {type: mongoose.Types.ObjectId, ref: 'User'}
+  user: {type: mongoose.Types.ObjectId, ref: 'user'}
 });
 
 

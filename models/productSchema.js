@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
     discount:{type:String,required:false},
     rating:{type:String,required:false},
     ratingCount:{type:String,required:false},
-    addedBy:{type:mongoose.Types.ObjectId,ref:'User'},
+    addedBy:{type:mongoose.Types.ObjectId,ref:'user'},
 });
 
 

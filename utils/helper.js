@@ -31,7 +31,7 @@ const comparePassword = (password, dbPass) => {
 
 const createToken = (email) => {
   const privateKey = process.env.PRIVATE_JWT_KEY;
-  const token = jwt.sign({ user: email }, privateKey, { expiresIn: "24h" });
+  const token = jwt.sign({ user: email }, privateKey);
   if (token) {
     return { token: token, error: false };
   } else {

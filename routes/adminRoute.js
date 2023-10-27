@@ -1,7 +1,7 @@
 const express= require('express');
 const { Authorization } = require('../middlewares/Authorization');
 const { User } = require('../models/userModel');
-const { comparePassword, createToken, checkValidId } = require('../utils/helper');
+const { comparePassword, createToken, checkValidId, verifyToken } = require('../utils/helper');
 const mongoose  = require('mongoose');
 
 
@@ -10,6 +10,25 @@ const admin= express.Router();
 admin.get(`/`,(req, res) =>{
     res.status(200).json({error: true, status:200,message:`this is admin route`})
 });
+
+admin.get('/myprofile',Authorization('admin'),async(req,res)=>{
+    const token = req?.headers?.authorization?.split(" ")[1];
+    if(!token){
+        return res.status(401).json({error: true, status:404,message:`invalid or missing token`});
+    };
+    const { result } = await verifyToken(token);
+    if(result?.user){
+        const Exist = await User.findOne({ email: result?.user });
+        // console.log(Exist,'res...')
+        if(Exist){
+            res.status(200).send({ status: 200, message: `user fetched successfully.`, data:Exist });
+        }else{
+            res.status(404).send({ status: 404, message: `no user found.` });
+        }
+    }else{
+        res.status(500).send({ status: 500, message: `Internal jwt server error.` });
+    }
+})
 
 admin.get('/myusers',Authorization('admin'), async(req, res) =>{
     const users= await User.find({},{__v:0});
@@ -53,6 +72,7 @@ admin.post('/auth/signin',Authorization('admin'), async(req, res)=>{
         res.status(404).json({error: true, status:404,message:`No user Found.`})
     }
 });
+
 admin.delete('/deleteuser/:email',Authorization('admin'),async(req,res)=>{
     const {email}= req.params;
     if(!email){
@@ -71,6 +91,7 @@ admin.delete('/deleteuser/:email',Authorization('admin'),async(req,res)=>{
         }
     }
 });
+
 
 
 
